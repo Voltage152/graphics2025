@@ -70,7 +70,7 @@ int main()
 	Scene_SolarSystem scene;
 
     // render loop
-
+	while(!glfwWindowShouldClose(window))
 	{
 		// update time
 		float currentFrame = static_cast<float>(glfwGetTime());
