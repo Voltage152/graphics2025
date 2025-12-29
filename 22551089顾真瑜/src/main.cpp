@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "glMotion.h"
 #include "mesh.h"
+#include "model.h"
 #include "texture.h"
 #include "material.h"
 #include "light.h"
@@ -31,6 +32,7 @@ const unsigned int SCR_HEIGHT = 600;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool leftMouseButtonPressed = false;
+bool rightMouseButtonPressed = false;
 
 // for camera move
 float deltaTime = 0.0f;	// time between current frame and last frame
@@ -67,7 +69,7 @@ int main()
 	}
 
 	/// @NOTE: just choose which scene to use here
-	Scene_SolarSystem scene;
+	Scene_Nanosuit scene;
 
     // render loop
 	while(!glfwWindowShouldClose(window))

@@ -7,6 +7,7 @@
 #include "../camera.h"
 #include "../glMotion.h"
 #include "../mesh.h"
+#include "../model.h"
 #include "../texture.h"
 #include "../material.h"
 #include "../light.h"
@@ -24,6 +25,7 @@ public:
 
 };
 
+// Lab1
 class Scene_Triangle : public Scene{
 
 public:
@@ -39,6 +41,7 @@ private:
     float rotation;
 };
 
+// Lab2
 class Scene_SolarSystem : public Scene{
 
 public:
@@ -58,6 +61,29 @@ private:
 
     float earth_rotation_angle, moon_rotation_angle, sun_rotation_angle;
     float earth_revolution_angle, moon_revolution_angle;
+};
+
+// Lab3
+class Scene_Nanosuit : public Scene{
+
+public:
+
+    Scene_Nanosuit();
+    ~Scene_Nanosuit();
+    virtual void renderFunc() override;
+
+private:
+
+    // Shaders
+    Shader *obj_shader, *light_shader;
+
+    // objects
+    Model *mymodel;
+    Cube *light_cube;
+
+    // lights
+    Light* direct_light;
+
 };
 
 #endif
