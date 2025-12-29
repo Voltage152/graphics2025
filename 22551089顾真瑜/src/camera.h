@@ -22,7 +22,7 @@ const float D_ZOOM        =  45.0f;
 
 class Camera{
 
-public: 
+public:
 
     // camera Attributes
     glm::vec3 Position;
@@ -38,7 +38,7 @@ public:
     float MouseSensitivity;
     float ZoomScale;
 
-    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = D_YAW, float pitch = D_PITCH) 
+    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = D_YAW, float pitch = D_PITCH)
             : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(D_SPEED), MouseSensitivity(D_SENSITIVITY), ZoomScale(D_ZOOM){
         Position = position;
         WorldUp = up;
@@ -47,7 +47,7 @@ public:
         updateCameraVectors();
     }
 
-    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) 
+    Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
             : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(D_SPEED), MouseSensitivity(D_SENSITIVITY), ZoomScale(D_ZOOM)
     {
         Position = glm::vec3(posX, posY, posZ);
@@ -69,6 +69,13 @@ public:
 
     /// @brief respond to scroll input, modiry zoom
     void Zoom(float scale);
+
+    /// @brief move around orbit center
+    /// @param xoffset mouse
+    /// @param yoffset mouse
+    /// @param center orbit center
+    /// @param radius orbit radius
+    void Orbit(float xoffset, float yoffset, glm::vec3 center, float radius);
 
 private:
 

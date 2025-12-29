@@ -5,6 +5,7 @@ extern Camera camera;       // NOT GOOD, but necessary
 extern float lastX;
 extern float lastY;
 extern bool leftMouseButtonPressed;
+extern bool rightMouseButtonPressed;
 extern float deltaTime;
 extern float lastFrame;
 
@@ -35,15 +36,23 @@ void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
     float xpos = static_cast<float>(xposIn);
     float ypos = static_cast<float>(yposIn);
 
-	if(leftMouseButtonPressed)
-    {
+	if(leftMouseButtonPressed) {
 		float xoffset = xpos - lastX;
 		float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
 		camera.Rotate(xoffset, yoffset);
 		lastX = xpos;
     	lastY = ypos;
 	}
-
+    else if(rightMouseButtonPressed) {
+        float xoffset = xpos - lastX;
+		float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+        // move around (0, 0, 0)
+        auto center = glm::vec3(0.0f, 0.0f, 0.0f);
+        float radius = glm::distance(camera.Position, center);
+        camera.Orbit(xoffset, yoffset, center, radius);
+        lastX = xpos;
+    	lastY = ypos;
+    }
 }
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
@@ -56,6 +65,17 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 			lastY = (float)ly;
         } else if (action == GLFW_RELEASE) {
             leftMouseButtonPressed = false;
+        }
+    }
+    else if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+        if (action == GLFW_PRESS) {
+            rightMouseButtonPressed = true;
+            double lx, ly;
+            glfwGetCursorPos(window, &lx, &ly);
+			lastX = (float)lx;
+			lastY = (float)ly;
+        } else {
+            rightMouseButtonPressed = false;
         }
     }
 }

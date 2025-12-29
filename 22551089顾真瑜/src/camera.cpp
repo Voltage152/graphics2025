@@ -18,7 +18,7 @@ void Camera::Move(Camera_Movement direction, float deltaTime)
     if (direction == LEFT)
         Position -= Right * velocity;
     if (direction == RIGHT)
-        Position += Right * velocity;        
+        Position += Right * velocity;
 }
 
 void Camera::Rotate(float d_pitch, float d_yaw, GLboolean constrainPitch)
@@ -47,6 +47,22 @@ void Camera::Zoom(float scale)
         ZoomScale = 1.0f;
     if (ZoomScale > 45.0f)
         ZoomScale = 45.0f;
+}
+
+void Camera::Orbit(float xoffset, float yoffset, glm::vec3 center, float radius)
+{
+    float x_sens = xoffset * MouseSensitivity;
+    float y_sens = yoffset * MouseSensitivity;
+
+    Yaw   += x_sens;
+    Pitch += y_sens;
+
+    if (Pitch > 89.0f) Pitch = 89.0f;
+    if (Pitch < -89.0f) Pitch = -89.0f;
+
+    updateCameraVectors();
+
+    Position = center - (Front * radius);
 }
 
 void Camera::updateCameraVectors()
